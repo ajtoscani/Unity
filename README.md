@@ -1,3 +1,2 @@
 # Unity
-A resume of my Unity tinkering's
-Testing initial commit
+## A resume of my Unity tinkering's
