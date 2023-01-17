@@ -1,8 +1,8 @@
-#Unity
-##A portfolio of my Unity tinkering's
+# Unity
+## A portfolio of my Unity tinkering's
 
 
-###__List of Projects__
+### __List of Projects__
 	-SaveLoad
 	-3rdPersonController
 
