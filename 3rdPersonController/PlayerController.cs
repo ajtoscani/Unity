@@ -20,8 +20,6 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     private float _turnSmoothTime = .1f;
     [SerializeField]
-    private Transform _cam;
-    [SerializeField]
     private float _jumpHeight;
     [SerializeField]
     [Tooltip("Controls how soon the palyer can jump after touching the ground.")]
@@ -71,8 +69,7 @@ public class PlayerController : MonoBehaviour
     private float _targetSpeed;
 
 
-    //Player Driven Delegates
-    public static Action PlayerInteractAction;
+    
     private void Awake()
     {
         _playerInputActions = new PlayerInputActions();
@@ -94,32 +91,13 @@ public class PlayerController : MonoBehaviour
         _playerInputActions.Player.Jump.performed += OnJump;
         _playerInputActions.Player.Sprint.started += OnSprint;
         _playerInputActions.Player.Sprint.canceled += OnSprint;
-        _playerInputActions.Player.Interact.performed += OnInteract;
-        _playerInputActions.Player.Attack.performed += OnAttack;
-        _playerInputActions.Player.Aim.started += OnAim;
-        _playerInputActions.Player.Aim.canceled += OnAim;
         _playerInputActions.Player.Enable();
     }
 
-    private void OnAttack(InputAction.CallbackContext obj)
-    {
-        UnityEngine.Debug.Log("I am Attacking!");
-    }
-
-    private void OnInteract(InputAction.CallbackContext obj)
-    {
-        PlayerInteractAction?.Invoke();
-    }
-
+  
     private void OnSprint(InputAction.CallbackContext obj)
     {
         _sprinting = !_sprinting;
-    }
-
-    private void OnAim(InputAction.CallbackContext obj)
-    {
-        _aiming = !_aiming;
-        UnityEngine.Debug.Log("AIMING");
     }
 
     private void OnJump(InputAction.CallbackContext obj)
@@ -170,14 +148,6 @@ public class PlayerController : MonoBehaviour
 
     private void ApplyMovement()
     {
-        //If sprinting change movement speed
-        //float targetSpeed = _sprinting ? _sprintSpeed : _movementSpeed;
-        //if (_movement.ReadValue<Vector2>() == Vector2.zero) targetSpeed = 0f;
-        //Get the x and y values from player input.
-        //We normalize so that a diagonal input does not create faster movement
-        //_direction = new Vector3(_movement.ReadValue<Vector2>().x, 0f, _movement.ReadValue<Vector2>().y).normalized;
-        //_moveDirection = new Vector3();
-        //Vector3 jumpVector;
             //If moving and not aiming rotate towards camera direction
             if (_movement.ReadValue<Vector2>() != Vector2.zero && !_aiming)
             {
@@ -224,10 +194,6 @@ public class PlayerController : MonoBehaviour
         _playerInputActions.Player.Jump.performed -= OnJump;
         _playerInputActions.Player.Sprint.started -= OnSprint;
         _playerInputActions.Player.Sprint.canceled -= OnSprint;
-        _playerInputActions.Player.Aim.started -= OnAim;
-        _playerInputActions.Player.Aim.canceled -= OnAim;
-        _playerInputActions.Player.Interact.performed -= OnInteract;
-        _playerInputActions.Player.Attack.performed -= OnAttack;
         _playerInputActions.Player.Disable();
     }
 
